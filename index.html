@@ -19,6 +19,9 @@
     <!-- File CSS Kustom Anda -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- PERUBAHAN: Menambahkan API YouTube IFrame -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
 </head>
 <body class="bg-amber-50 text-gray-800 film-grain-overlay" style="overflow: hidden;">
 
@@ -67,17 +70,18 @@
             <i class="fa-solid fa-envelope-open mr-2"></i> Buka Undangan
         </button>
 
-        <!-- Petunjuk Scroll Dihapus -->
-
     </div>
 
     <!-- 2. Konten Utama (Tersembunyi Awalnya) -->
     <main id="main-content" class="max-w-xl lg:max-w-3xl mx-auto bg-amber-50 shadow-xl" style="display: none;">
         
         <!-- Musik & Tombol Kontrol -->
-        <audio id="background-music" src="https://cdns-preview.dzmcdn.net/stream/c-a11516e88102d55c706915b2e9e2e604-5.mp3" loop>
-            Browser Anda tidak mendukung elemen audio.
-        </audio>
+        <!-- PERUBAHAN: Menghapus tag <audio> -->
+        <!-- <audio id="background-music" ... </audio> -->
+
+        <!-- PERUBAHAN: Menambahkan div untuk player YouTube yang tersembunyi -->
+        <div id="youtube-player"></div>
+
         <button id="music-toggle" aria-label="Toggle Music">
             <i class="fas fa-music fa-spin"></i>
         </button>

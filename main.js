@@ -45,11 +45,11 @@ window.onYouTubeIframeAPIReady = function() {
 
 /**
  * API akan memanggil fungsi ini saat player video sudah siap.
+ * PERBAIKAN: Kita tidak mengatur volume di sini lagi.
  */
 function onPlayerReady(event) {
     console.log("YouTube Player Siap");
-    event.target.setVolume(80); // Atur volume (0-100)
-    // Kita tidak putar di sini, kita tunggu openInvitation
+    // event.target.setVolume(80); // DIHAPUS: Pindahkan ke 'openInvitation'
 }
 // --- Akhir Perubahan YouTube IFrame API ---
 
@@ -63,12 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const openButton = document.getElementById('open-invitation');
     
-    // PERUBAHAN: Hapus referensi ke elemen <audio>
-    // const music = document.getElementById('background-music'); 
-    
     const musicToggle = document.getElementById('music-toggle');
     const musicIcon = musicToggle.querySelector('i');
-    // Variabel ini akan kita gunakan untuk memantau state (playing/paused)
     let isMusicPlaying = false; 
     
     // Mengambil nama tamu dari URL
@@ -96,11 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContent.style.display = 'block';
         document.body.style.overflow = 'auto'; // Izinkan scroll
         
-        // --- PERUBAHAN: Mulai musik YouTube ---
+        // --- PERBAIKAN: Mulai musik YouTube dengan trik Mute/Unmute ---
         try {
             // Cek apakah ytPlayer sudah siap
             if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                
+                // 1. Mute player
+                ytPlayer.mute();
+                // 2. Mainkan video (browser mengizinkan autoplay jika muted)
                 ytPlayer.playVideo();
+                // 3. Langsung unmute dan atur volume
+                // Diberi jeda sedikit (misal 100ms) terkadang membantu
+                setTimeout(() => {
+                    ytPlayer.unMute();
+                    ytPlayer.setVolume(80); // Atur volume (0-100)
+                }, 100);
+
                 isMusicPlaying = true;
                 musicIcon.classList.add('fa-spin');
             } else {
@@ -117,13 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
              musicIcon.classList.remove('fa-music');
              musicIcon.classList.add('fa-volume-mute');
         }
-        // --- Akhir Perubahan ---
+        // --- Akhir Perbaikan ---
     }
 
     // Event listener untuk tombol buka undangan
     openButton.addEventListener('click', openInvitation);
 
-    // --- PERUBAHAN: Kontrol Tombol Musik ---
+    // Kontrol Tombol Musik
     musicToggle.addEventListener('click', () => {
         // Pastikan player sudah ada
         if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') {
@@ -153,4 +160,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hitung Mundur (Countdown)
     const countdownDate = new Date("2025-12-21T09:00:00").getTime();
-// ... (sisa file main.js tetap utuh) ...
+    const countdownTimer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        const f = (n) => (n < 10 ? '0' + n : n); // Format 2 digit
+        
+        // Pastikan elemen ada sebelum diisi
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+
+        if (daysEl && hoursEl && minutesEl && secondsEl) {
+            daysEl.innerText = f(days);
+            hoursEl.innerText = f(hours);
+            minutesEl.innerText = f(minutes);
+            secondsEl.innerText = f(seconds);
+        }
+
+        if (distance < 0) {
+            clearInterval(countdownTimer);
+            const countdownEl = document.getElementById('countdown');
+            if (countdownEl) {
+                // Gunakan terjemahan
+                countdownEl.innerHTML = `<p class="text-xl font-bold text-green-700">${translations[currentLang].countdownOver}</p>`;
+            }
+        }
+    }, 1000);
+
+    // Modal Hadiah
+    const giftModal = document.getElementById('gift-modal');
+    const openGiftModal = document.getElementById('open-gift-modal');
+    const closeGiftModal = document.getElementById('close-gift-modal');
+
+    if(openGiftModal) openGiftModal.addEventListener('click', () => giftModal.classList.remove('hidden'));
+    if(closeGiftModal) closeGiftModal.addEventListener('click', () => giftModal.classList.add('hidden'));
+    if(giftModal) giftModal.addEventListener('click', (e) => {
+        if (e.target === giftModal) {
+            giftModal.classList.add('hidden');
+        }
+    });
+    
+    // Navigasi Scroll
+    window.scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if(section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    
+    // Fungsi Salin (Copy to Clipboard)
+    window.copyToClipboard = (elementId) => {
+        const textToCopy = document.getElementById(elementId).innerText;
+        const helperTextarea = document.getElementById('copy-helper');
+        helperTextarea.value = textToCopy;
+        helperTextarea.select();
+        try {
+            document.execCommand('copy');
+            const copyMessage = document.getElementById('copy-message');
+            if(copyMessage) {
+                // Gunakan terjemahan
+                copyMessage.innerText = translations[currentLang].giftCopySuccess;
+                setTimeout(() => copyMessage.innerText = '', 2000);
+            }
+        } catch (err) {
+            console.error('Gagal menyalin: ', err);
+        }
+    }
+});

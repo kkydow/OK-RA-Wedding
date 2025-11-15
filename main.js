@@ -27,13 +27,14 @@ const youtubeVideoId = 'jJzMDeVkMlw'; // ID dari link YouTube Anda
 window.onYouTubeIframeAPIReady = function() {
     console.log("YouTube API Siap");
     ytPlayer = new YT.Player('youtube-player', {
-        height: '1', // Ukuran minimal
-        width: '1',
+        /* PERUBAHAN: Ganti tinggi & lebar agar responsif */
+        height: '100%', // Ganti dari '1'
+        width: '100%',  // Ganti dari '1'
         videoId: youtubeVideoId,
         playerVars: {
             'playsinline': 1,  // Wajib untuk iOS
             'autoplay': 0,     // 0 = Jangan autoplay saat load, tunggu tombol Buka
-            'controls': 0,     // 0 = Sembunyikan kontrol player
+            'controls': 1,     // PERUBAHAN: Tampilkan kontrol video (dari 0 ke 1)
             'loop': 1,         // 1 = Loop video
             'playlist': youtubeVideoId // Wajib diisi agar 'loop: 1' berfungsi
         },

@@ -76,11 +76,8 @@
     <main id="main-content" class="max-w-xl lg:max-w-3xl mx-auto bg-amber-50 shadow-xl" style="display: none;">
         
         <!-- Musik & Tombol Kontrol -->
-        <!-- PERUBAHAN: Menghapus tag <audio> -->
-        <!-- <audio id="background-music" ... </audio> -->
-
-        <!-- PERUBAHAN: Menambahkan div untuk player YouTube yang tersembunyi -->
-        <div id="youtube-player"></div>
+        <!-- PERUBAHAN: Div player YouTube dihapus dari sini -->
+        <!-- <div id="youtube-player"></div> -->
 
         <button id="music-toggle" aria-label="Toggle Music">
             <i class="fas fa-music fa-spin"></i>
@@ -113,6 +110,15 @@
             <div class="absolute bottom-10 z-10 text-white animate-bounce">
                 <i class="fa-solid fa-chevron-down text-2xl"></i>
                 <p class="text-sm" data-key="heroScroll">Scroll ke bawah</p>
+            </div>
+        </section>
+
+        <!-- PERUBAHAN: Menambahkan Player YouTube yang Terlihat -->
+        <section id="video" class="p-6 md:p-10 text-center">
+            <h2 class="font-pacifico text-3xl md:text-4xl text-orange-800 mb-8">Video Cerita Kami</h2>
+            <div id="youtube-player-container">
+                <!-- Player akan dimuat di sini oleh JS, menggantikan div ini -->
+                <div id="youtube-player"></div> 
             </div>
         </section>
 

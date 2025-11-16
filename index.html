@@ -19,7 +19,7 @@
     <!-- File CSS Kustom Anda -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- PERUBAHAN: Menambahkan API YouTube IFrame -->
+    <!-- API YouTube IFrame -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
 </head>
@@ -31,7 +31,6 @@
         <!-- Tombol Bahasa -->
         <div id="lang-switcher">
             <button onclick="setLanguage('id')" class="lang-btn active" data-lang="id">ID</button>
-            <button onclick="setLanguage('en')" class="lang-btn" data-lang="en">EN</button>
             <button onclick="setLanguage('ja')" class="lang-btn" data-lang="ja">JA</button>
         </div>
 
@@ -75,14 +74,6 @@
     <!-- 2. Konten Utama (Tersembunyi Awalnya) -->
     <main id="main-content" class="max-w-xl lg:max-w-3xl mx-auto bg-amber-50 shadow-xl" style="display: none;">
         
-        <!-- Musik & Tombol Kontrol -->
-        <!-- PERUBAHAN: Div player YouTube dihapus dari sini -->
-        <!-- <div id="youtube-player"></div> -->
-
-        <button id="music-toggle" aria-label="Toggle Music">
-            <i class="fas fa-music fa-spin"></i>
-        </button>
-
         <!-- Navigasi Bawah -->
         <nav class="bottom-nav">
             <button onclick="scrollToSection('hero')"><i class="fa-solid fa-house"></i><span data-key="navHome">Home</span></button>
@@ -113,9 +104,9 @@
             </div>
         </section>
 
-        <!-- PERUBAHAN: Menambahkan Player YouTube yang Terlihat -->
+        <!-- Player YouTube yang Terlihat -->
         <section id="video" class="p-6 md:p-10 text-center">
-            <h2 class="font-pacifico text-3xl md:text-4xl text-orange-800 mb-8">Video Cerita Kami</h2>
+            <h2 class="font-pacifico text-3xl md:text-4xl text-orange-800 mb-8" data-key="videoTitle">Video Cerita Kami</h2>
             <div id="youtube-player-container">
                 <!-- Player akan dimuat di sini oleh JS, menggantikan div ini -->
                 <div id="youtube-player"></div> 
@@ -258,7 +249,7 @@
                 <!-- GANTI FOTO DI SINI: Ganti 'src' dengan foto Anda -->
                 <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
                     <img src="https://placehold.co/400x400/FDBF81/333333?text=Ganti+Foto+5" alt="Galeri 5" class="w-full h-full object-cover" width="400" height="400" data-key="gallery5">
-                </div>
+DEMO-ganti-foto.png                </div>
                 <!-- GANTI FOTO DI SINI: Ganti 'src' dengan foto Anda -->
                 <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
                     <img src="https://placehold.co/400x400/FFAF81/333333?text=Ganti+Foto+6" alt="Galeri 6" class="w-full h-full object-cover" width="400" height="400" data-key="gallery6">

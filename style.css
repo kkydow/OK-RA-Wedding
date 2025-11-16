@@ -201,32 +201,7 @@ body {
 }
 /* --- END STYLES FOR NEW COVER --- */
 
-/* Tombol Musik */
-#music-toggle {
-    position: fixed;
-    bottom: 70px; /* Di atas bottom nav */
-    right: 20px;
-    z-index: 90;
-    background-color: #F9A826; /* Kuning/Oranye */
-    color: white;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid white;
-}
-
-#music-toggle i.fa-spin {
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+/* Tombol Musik Dihapus */
 
 /* Navigasi Bawah */
 .bottom-nav {
@@ -270,26 +245,12 @@ body {
     color: #D97706; /* oranye tua */
 }
 
-/* Perubahan: Mengembalikan transisi untuk cover (fade-out) */
+/* Transisi untuk cover (fade-out) */
 #cover {
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-/* PERUBAHAN: Hapus style lama yang menyembunyikan player */
-/*
-#youtube-player {
-    position: fixed;
-    top: -200px; 
-    left: 0;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none; 
-    z-index: -100; 
-}
-*/
-
-/* PERUBAHAN: Menambahkan style baru agar player terlihat & responsif */
+/* Style agar player terlihat & responsif */
 #youtube-player-container {
     /* Kontainer ini menjaga rasio aspek 16:9 */
     position: relative;
